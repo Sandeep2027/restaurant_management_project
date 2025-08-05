@@ -65,7 +65,7 @@ class NoteViewSet(viewsets.ModelViewSet):
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
-        from account.models import UserProfile
+        # Auto-create UserProfile on user creation
         UserProfile.objects.create(user=instance)
 
 # Notes URLs
