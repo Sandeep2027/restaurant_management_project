@@ -9,7 +9,7 @@ from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken.views import obtain_auth_token
 from django.urls import path, include
 
-# Notes Models
+
 class Note(models.Model):
     title = models.CharField(max_length=100, db_index=True)
     content = models.TextField()
@@ -29,7 +29,7 @@ class Note(models.Model):
     def __str__(self):
         return self.title
 
-# Notes Serializers
+
 class NoteSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
 
@@ -48,7 +48,7 @@ class NoteSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Content cannot be empty.")
         return value
 
-# Notes Viewsets
+
 class NoteViewSet(viewsets.ModelViewSet):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
@@ -60,15 +60,15 @@ class NoteViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
-# Notes Signals
+
 @receiver(post_save, sender=User)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
-        # Auto-create UserProfile on user creation
+        from account.models import UserProfile
         UserProfile.objects.create(user=instance)
 
-# Notes URLs
+
 router = DefaultRouter()
 router.register(r'notes', NoteViewSet)
 
