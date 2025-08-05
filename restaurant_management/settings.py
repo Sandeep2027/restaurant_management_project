@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'notes',
-    'notes',
     'account',
     'orders',
     'products',
@@ -82,6 +81,8 @@ TEMPLATES = [
         },
     },
 ]
+
+SITE_URL = 'http://localhost:8000'
 
 WSGI_APPLICATION = 'restaurant_management.wsgi.application'
 
@@ -137,6 +138,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
 
 
