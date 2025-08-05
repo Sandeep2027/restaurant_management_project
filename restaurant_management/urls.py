@@ -21,10 +21,12 @@ from rest_framework.routers import DefaultRouter
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/',include('home.urls')),
+    path('api/', include('notes.urls')),
     path('api/accounts/',include('account.urls')),
     path('api/products/',include('products.urls')),
     path('api/orders/',include('orders.urls')),
 ]
+
 
 
 
