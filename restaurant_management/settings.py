@@ -137,9 +137,9 @@ USE_TZ = True
 
 STATICFILES_DIRS = []
 STATIC_URL = '/static/'
-SITE_URL = 'http://localhost:8000'  # Update for production
+SITE_URL = 'http://localhost:8000'  
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DEBUG = True  # Set to False in production
+DEBUG = True  
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
