@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'products',
     'home',
 ]
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
@@ -135,7 +134,6 @@ USE_TZ = True
 
 
 
-
 STATICFILES_DIRS = []
 STATIC_URL = '/static/'
 SITE_URL = 'http://localhost:8000'  
@@ -143,7 +141,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEBUG = True  
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 
 
 
