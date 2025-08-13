@@ -139,10 +139,8 @@ STATIC_URL = '/static/'
 SITE_URL = 'http://localhost:8000'  
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEBUG = True  
-RESTAURANT_NAME = "Grok's Gourmet"
-
+RESTAURANT_NAME="MASTER CHEFF"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 
 
 
