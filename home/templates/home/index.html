@@ -5,27 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant Menu</title>
 </head>
-<body style="background-color: #fef3c7; font-family: Georgia, 'Times New Roman', serif; margin: 0;">
+<body style="font-family: 'Georgia', 'Times New Roman', serif; background-color: #fef3e2; margin: 0;">
     <header style="background-color: #7f1d1d; color: white; padding: 2rem; text-align: center;">
         <h1 style="font-size: 3rem; font-weight: bold; margin: 0;">Welcome to Our Restaurant</h1>
-        <p style="font-size: 1.25rem; margin-top: 0.5rem;">Explore Our Delicious Menu</p>
+        <p style="font-size: 1.25rem; margin: 0.5rem 0;">Savor Our Exquisite Menu</p>
     </header>
-    <main style="max-width: 1200px; margin: 0 auto; padding: 3rem 1rem;">
+    <main style="max-width: 1200px; margin: 3rem auto; padding: 0 1.5rem;">
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
             {% for product in products %}
-                <div style="background-color: white; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); padding: 1.5rem; transition: transform 0.3s;">
-                    <h2 style="font-size: 1.75rem; font-weight: 600; color: #1f2937; margin: 0 0 1rem;">{{ product.name }}</h2>
-                    <p style="font-size: 1rem; color: #4b5563; margin: 0 0 1rem; line-height: 1.5;">{{ product.description|default:"No description available" }}</p>
-                    <p style="font-size: 1.25rem; font-weight: bold; color: #dc2626;">${{ product.price }}</p>
+                <div style="background-color: white; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); padding: 1.5rem; transition: transform 0.3s ease;">
+                    <h2 style="font-size: 1.75rem; font-weight: bold; color: #2d2d2d; margin: 0 0 1rem;">{{ product.name }}</h2>
+                    <p style="font-size: 1rem; color: #4a4a4a; margin: 0 0 1rem; line-height: 1.5;">{{ product.description|default:"No description available" }}</p>
+                    <p style="font-size: 1.25rem; font-weight: bold; color: #b91c1c;">${{ product.price }}</p>
                 </div>
             {% empty %}
-                <p style="text-align: center; color: #4b5563; font-size: 1.25rem; grid-column: 1 / -1;">No menu items available at the moment.</p>
+                <p style="grid-column: 1 / -1; text-align: center; font-size: 1.25rem; color: #4a4a4a;">No menu items available at the moment.</p>
             {% endfor %}
         </div>
     </main>
-    <footer style="background-color: #7f1d1d; color: white; text-align: center; padding: 1.5rem; font-size: 0.875rem;">
+    <footer style="background-color: #7f1d1d; color: white; text-align: center; padding: 1.5rem; font-size: 0.9rem;">
         <p>&copy; 2025 Restaurant Management. All rights reserved.</p>
     </footer>
 </body>
 </html>
-
