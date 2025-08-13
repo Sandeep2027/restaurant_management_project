@@ -12,3 +12,8 @@ def home_view(request):
         products = []
     return render(request, 'home/index.html', {'products': products})
 
+
+def about_view(request):
+    return render(request, 'home/about.html', {
+        'restaurant_name': settings.RESTAURANT_NAME
+    })
