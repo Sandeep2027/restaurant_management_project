@@ -4,27 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant Menu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f4; }
-        h1 { text-align: center; color: #333; }
-        .menu-container { max-width: 800px; margin: 0 auto; }
-        .menu-item { background: #fff; padding: 15px; margin: 10px 0; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .menu-item h2 { margin: 0; color: #2c3e50; }
-        .menu-item p { margin: 5px 0; color: #555; }
-        .menu-item .price { font-weight: bold; color: #e74c3c; }
+        body {
+            font-family: 'Playfair Display', 'Georgia', serif;
+        }
     </style>
 </head>
-<body>
-    <h1>Restaurant Menu</h1>
-    <div class="menu-container">
-        {% for product in products %}
-            <div class="menu-item">
-                <h2>{{ product.name }}</h2>
-                <p>{{ product.description|default:"No description available" }}</p>
-                <p class="price">${{ product.price }}</p>
-            </div>
-        {% empty %}
-            <p>No menu items available.</p>
-        {% endfor %}
-    </div>
+<body class="bg-amber-50">
+    <header class="bg-red-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <h1 class="text-5xl font-bold text-center">Welcome to Our Restaurant</h1>
+            <p class="text-center mt-2 text-lg">Explore Our Delicious Menu</p>
+        </div>
+    </header>
+    <main class="container mx-auto px-4 py-12">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for product in products %}
+                <div class="bg-white rounded-xl shadow-lg p-6 transform hover:scale-105 transition-transform duration-300">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-3">{{ product.name }}</h2>
+                    <p class="text-gray-700 mb-4">{{ product.description|default:"No description available" }}</p>
+                    <p class="text-xl font-bold text-red-600">${{ product.price }}</p>
+                </div>
+            {% empty %}
+                <p class="text-center text-gray-600 col-span-full text-lg">No menu items available at the moment.</p>
+            {% endfor %}
+        </div>
+    </main>
+    <footer class="bg-red-800 text-white text-center py-6">
+        <p class="text-sm">&copy; 2025 Restaurant Management. All rights reserved.</p>
+    </footer>
 </body>
+</html>
