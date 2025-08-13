@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ restaurant_name }} - About Us</title>
+</head>
+<body style="font-family: 'Georgia', 'Times New Roman', serif; background-color: #fef3e2; margin: 0;">
+    <header style="background-color: #7f1d1d; color: white; padding: 1rem; text-align: center;">
+        <nav style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: center; gap: 2rem;">
+            <a href="{% url 'home' %}" style="color: white; text-decoration: none; font-size: 1.1rem; font-weight: bold; padding: 0.5rem 1rem; border-radius: 8px; transition: background-color 0.3s ease;">Home</a>
+            <a href="{% url 'about' %}" style="color: white; background-color: #b91c1c; text-decoration: none; font-size: 1.1rem; font-weight: bold; padding: 0.5rem 1rem; border-radius: 8px; transition: background-color 0.3s ease;">About Us</a>
+        </nav>
+        <h1 style="font-size: 3rem; font-weight: bold; margin: 1rem 0;">About {{ restaurant_name }}</h1>
+    </header>
+    <main style="max-width: 1200px; margin: 3rem auto; padding: 0 1.5rem;">
+        <div style="background-color: white; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); padding: 2rem;">
+            <h2 style="font-size: 2rem; font-weight: bold; color: #2d2d2d; margin: 0 0 1rem;">Our Story</h2>
+            <p style="font-size: 1rem; color: #4a4a4a; line-height: 1.6; margin: 0 0 1.5rem;">
+                Welcome to {{ restaurant_name }}, where culinary passion meets exceptional dining. Since our founding in 2020, we've been dedicated to serving fresh, locally-sourced dishes that celebrate the flavors of our region. Our chefs craft each meal with care, ensuring a memorable experience for every guest.
+            </p>
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4" alt="Restaurant interior" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 8px; margin-bottom: 1.5rem;">
+            <p style="font-size: 1rem; color: #4a4a4a; line-height: 1.6;">
+                Join us to enjoy a warm, inviting atmosphere and dishes that tell a story of tradition and innovation. We look forward to welcoming you!
+            </p>
+        </div>
+    </main>
+    <footer style="background-color: #7f1d1d; color: white; text-align: center; padding: 1.5rem; font-size: 0.9rem;">
+        <p>&copy; 2025 {{ restaurant_name }}. All rights reserved.</p>
+    </footer>
+</body>
+</html>
