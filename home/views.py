@@ -14,25 +14,21 @@ def get_restaurant_phone():
         return restaurant.phone_number
     return getattr(settings, 'RESTAURANT_PHONE', '')
 
-def home_view(request):
-    api_url = f"{settings.SITE_URL}/api/products/"
-    products = []
-    try:
-        response = requests.get(api_url)
-        response.raise_for_status()
-        products = response.json()
-    except requests.RequestException:
-        pass
+def home(request):
+    context = {
+        'restaurant_name': request.settings.RESTAURANT_NAME
+    }
+    return render(request, 'home/index.html', context)
 
-    context = get_base_context()
-    context["products"] = products
-    context["phone_number"] = get_restaurant_phone()
-    return render(request, "home/index.html", context)
+def about(request):
+    context = {
+        'restaurant_name': request.settings.RESTAURANT_NAME
+    }
+    return render(request, 'home/about.html', context)
 
-def about_view(request):
-    context = get_base_context()
-    return render(request, "home/about.html", context)
+def contact(request):
+    context = {
+        'restaurant_name': request.settings.RESTAURANT_NAME
+    }
+    return render(request, 'home/contact.html', context)
 
-def contact_view(request):
-    context = get_base_context()
-    return render(request, "home/contact.html", context)
