@@ -42,6 +42,7 @@ class MenuItemViewSet(viewsets.ModelViewSet):
             return MenuItem.objects.filter(restaurant_id=restaurant_id)
         return super().get_queryset()
 
+
     @action(detail=False, methods=['get'])
     def menu_view(self, request):
         # Hardcoded menu items for now (can be replaced with DB query later)
