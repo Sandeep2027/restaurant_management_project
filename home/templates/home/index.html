@@ -4,7 +4,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{{ restaurant_name }}{% if products %} - Menu{% else %} - Home{% endif %}</title>
+    <title>
+        {% if products %}
+            {{ restaurant_name }} - Menu
+        {% else %}
+            Home - {{ restaurant_name }}
+        {% endif %}
+    </title>
     <link rel="stylesheet" href="{% static 'home/css/style.css' %}" />
     <style>
         body {
@@ -46,11 +52,13 @@
             max-width: 1200px;
             margin: 3rem auto;
             padding: 0 1.5rem;
+            text-align: center;
         }
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
+            text-align: left;
         }
         .menu-item {
             background-color: #fff;
@@ -81,6 +89,7 @@
                 <a href="{% url 'menu_view' %}">Menu</a>
             {% endif %}
         </nav>
+
         {% if products %}
             <h1>{{ restaurant_name }}</h1>
             <p>Savor Our Exquisite Menu</p>
@@ -88,6 +97,7 @@
             <h1>Welcome to {{ restaurant_name }}</h1>
         {% endif %}
     </header>
+
     <main>
         {% if products %}
             <div class="menu-grid">
@@ -105,14 +115,15 @@
             </div>
         {% else %}
             <section>
-                <h2>Delicious Food Awaits</h2>
-                <p>Explore our menu and enjoy a delightful dining experience at {{ restaurant_name }}.</p>
+                <h2>Welcome</h2>
+                <p>Enjoy a delightful dining experience at {{ restaurant_name }}.</p>
                 {% if phone_number %}
                 <p><strong>Contact us at:</strong> {{ phone_number }}</p>
                 {% endif %}
             </section>
         {% endif %}
     </main>
+
     <footer>
         <p>&copy; 2025 {{ restaurant_name }}. All rights reserved.</p>
     </footer>
