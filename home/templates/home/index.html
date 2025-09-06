@@ -6,47 +6,113 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ restaurant_name }}{% if products %} - Menu{% else %} - Home{% endif %}</title>
     <link rel="stylesheet" href="{% static 'home/css/style.css' %}">
+    <style>
+        body {
+            margin: 0;
+            font-family: {% if products %}'Georgia', 'Times New Roman', serif{% else %}'Arial', sans-serif{% endif %};
+            background-color: {% if products %}#fef3e2{% else %}#ffffff{% endif %};
+            color: #2d2d2d;
+        }
+        header {
+            text-align: center;
+            padding: 1rem;
+            background-color: {% if products %}#7f1d1d{% else %}#f2f2f2{% endif %};
+            color: {% if products %}#ffffff{% else %}#000000{% endif %};
+        }
+        header h1 {
+            font-size: {% if products %}3rem{% else %}2rem{% endif %};
+            margin: 0.5rem 0;
+        }
+        nav {
+            margin: 1rem auto;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+        nav a {
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+            color: {% if products %}#ffffff{% else %}#333{% endif %};
+            background-color: {% if products %}#b91c1c{% else %}transparent{% endif %};
+        }
+        nav a:hover {
+            background-color: {% if products %}#991b1b{% else %}#ddd{% endif %};
+        }
+        main {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+        }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        .menu-item {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.9rem;
+            background-color: {% if products %}#7f1d1d{% else %}#f2f2f2{% endif %};
+            color: {% if products %}#ffffff{% else %}#000000{% endif %};
+        }
+    </style>
 </head>
-<body {% if products %}style="font-family: 'Georgia', 'Times New Roman', serif; background-color: #fef3e2; margin:0;"{% endif %}>
-    <header {% if products %}style="background-color: #7f1d1d; color: white; padding: 1rem; text-align: center;"{% endif %}>
-        <nav {% if products %}style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: center; gap: 2rem;"{% endif %}>
-            <a href="{% url 'home' %}" {% if products %}style="color: white; background-color: #b91c1c; text-decoration: none; font-size: 1.1rem; font-weight: bold; padding: 0.5rem 1rem; border-radius: 8px;"{% endif %}>Home</a>
-            <a href="{% url 'about' %}" {% if products %}style="color: white; text-decoration: none; font-size: 1.1rem; font-weight: bold; padding: 0.5rem 1rem; border-radius: 8px;"{% endif %}>About Us</a>
+<body>
+    <header>
+        <nav>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'about' %}">About Us</a>
+            <a href="{% url 'contact' %}">Contact Us</a>
             {% if not products %}
                 <a href="{% url 'menu_view' %}">Menu</a>
             {% endif %}
         </nav>
-
-        {% if not products %}
-            <h1>Welcome to {{ restaurant_name }}</h1>
+        {% if products %}
+            <h1>{{ restaurant_name }}</h1>
+            <p>Savor Our Exquisite Menu</p>
         {% else %}
-            <h1 style="font-size: 3rem; font-weight: bold; margin: 1rem 0;">{{ restaurant_name }}</h1>
-            <p style="font-size: 1.25rem; margin: 0.5rem 0;">Savor Our Exquisite Menu</p>
+            <h1>Welcome to {{ restaurant_name }}</h1>
         {% endif %}
     </header>
 
-    <main {% if products %}style="max-width: 1200px; margin: 3rem auto; padding: 0 1.5rem;"{% endif %}>
-        {% if not products %}
+    <main>
+        {% if products %}
+            <div class="menu-grid">
+                {% for product in products %}
+                    <div class="menu-item">
+                        <h2>{{ product.name }}</h2>
+                        <p>{{ product.description|default:"No description available" }}</p>
+                        <p><strong>${{ product.price }}</strong></p>
+                    </div>
+                {% empty %}
+                    <p style="grid-column: 1 / -1; text-align: center; font-size: 1.25rem; color: #4a4a4a;">
+                        No menu items available at the moment.
+                    </p>
+                {% endfor %}
+            </div>
+        {% else %}
             <section>
                 <h2>Delicious Food Awaits</h2>
                 <p>Explore our menu and enjoy a delightful dining experience at {{ restaurant_name }}.</p>
             </section>
-        {% else %}
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-                {% for product in products %}
-                    <div style="background-color: white; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); padding: 1.5rem; transition: transform 0.3s ease;">
-                        <h2 style="font-size: 1.75rem; font-weight: bold; color: #2d2d2d; margin: 0 0 1rem;">{{ product.name }}</h2>
-                        <p style="font-size: 1rem; color: #4a4a4a; margin: 0 0 1rem; line-height: 1.5;">{{ product.description|default:"No description available" }}</p>
-                        <p style="font-size: 1.25rem; font-weight: bold; color: #b91c1c;">${{ product.price }}</p>
-                    </div>
-                {% empty %}
-                    <p style="grid-column: 1 / -1; text-align: center; font-size: 1.25rem; color: #4a4a4a;">No menu items available at the moment.</p>
-                {% endfor %}
-            </div>
         {% endif %}
     </main>
 
-    <footer {% if products %}style="background-color: #7f1d1d; color: white; text-align: center; padding: 1.5rem; font-size: 0.9rem;"{% endif %}>
+    <footer>
         <p>&copy; 2025 {{ restaurant_name }}. All rights reserved.</p>
     </footer>
 </body>
