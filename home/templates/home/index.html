@@ -2,10 +2,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ restaurant_name }}{% if products %} - Menu{% else %} - Home{% endif %}</title>
-    <link rel="stylesheet" href="{% static 'home/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/style.css' %}" />
     <style>
         body {
             margin: 0;
@@ -88,7 +88,6 @@
             <h1>Welcome to {{ restaurant_name }}</h1>
         {% endif %}
     </header>
-
     <main>
         {% if products %}
             <div class="menu-grid">
@@ -108,10 +107,12 @@
             <section>
                 <h2>Delicious Food Awaits</h2>
                 <p>Explore our menu and enjoy a delightful dining experience at {{ restaurant_name }}.</p>
+                {% if phone_number %}
+                <p><strong>Contact us at:</strong> {{ phone_number }}</p>
+                {% endif %}
             </section>
         {% endif %}
     </main>
-
     <footer>
         <p>&copy; 2025 {{ restaurant_name }}. All rights reserved.</p>
     </footer>
