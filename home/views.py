@@ -39,7 +39,6 @@ def reservations(request):
     }
     return render(request, 'home/reservations.html', context)
 
-
 def feedback(request):
     if request.method == 'POST':
         comment = request.POST.get('comment')
