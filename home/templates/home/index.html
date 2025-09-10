@@ -1,131 +1,36 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>
-        {% if products %}
-            {{ restaurant_name }} - Menu
-        {% else %}
-            Home - {{ restaurant_name }}
-        {% endif %}
-    </title>
-    <link rel="stylesheet" href="{% static 'home/css/style.css' %}" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Menu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
-            margin: 0;
-            font-family: {% if products %}'Georgia', 'Times New Roman', serif{% else %}'Arial', sans-serif{% endif %};
-            background-color: {% if products %}#fef3e2{% else %}#ffffff{% endif %};
-            color: #2d2d2d;
-        }
-        header {
-            text-align: center;
-            padding: 1rem;
-            background-color: {% if products %}#7f1d1d{% else %}#f2f2f2{% endif %};
-            color: {% if products %}#ffffff{% else %}#000000{% endif %};
-        }
-        header h1 {
-            font-size: {% if products %}3rem{% else %}2rem{% endif %};
-            margin: 0.5rem 0;
-        }
-        nav {
-            margin: 1rem auto;
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-        }
-        nav a {
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1rem;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            transition: background-color 0.3s ease;
-            color: {% if products %}#ffffff{% else %}#333{% endif %};
-            background-color: {% if products %}#b91c1c{% else %}transparent{% endif %};
-        }
-        nav a:hover {
-            background-color: {% if products %}#991b1b{% else %}#ddd{% endif %};
-        }
-        main {
-            max-width: 1200px;
-            margin: 3rem auto;
-            padding: 0 1.5rem;
-            text-align: center;
-        }
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            text-align: left;
-        }
-        .menu-item {
-            background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            padding: 1.5rem;
-            transition: transform 0.3s ease;
-        }
-        .menu-item:hover {
-            transform: translateY(-5px);
-        }
-        footer {
-            text-align: center;
-            padding: 1.5rem;
-            font-size: 0.9rem;
-            background-color: {% if products %}#7f1d1d{% else %}#f2f2f2{% endif %};
-            color: {% if products %}#ffffff{% else %}#000000{% endif %};
+            font-family: 'Playfair Display', 'Georgia', serif;
         }
     </style>
 </head>
-<body>
-    <header>
-        <nav>
-            <a href="{% url 'home' %}">Home</a>
-            <a href="{% url 'about' %}">About Us</a>
-            <a href="{% url 'contact' %}">Contact Us</a>
-            {% if not products %}
-                <a href="{% url 'menu_view' %}">Menu</a>
-            {% endif %}
-        </nav>
-
-        {% if products %}
-            <h1>{{ restaurant_name }}</h1>
-            <p>Savor Our Exquisite Menu</p>
-        {% else %}
-            <h1>Welcome to {{ restaurant_name }}</h1>
-        {% endif %}
+<body class="bg-amber-50">
+   <header>
+        <img src="{% static 'home/images/logo.png' %}" alt="{{ restaurant_name }} Logo" class="logo">
+        <h1>Welcome to {{ restaurant_name }}</h1>
     </header>
-
-    <main>
-        {% if products %}
-            <div class="menu-grid">
-                {% for product in products %}
-                    <div class="menu-item">
-                        <h2>{{ product.name }}</h2>
-                        <p>{{ product.description|default:"No description available" }}</p>
-                        <p><strong>${{ product.price }}</strong></p>
-                    </div>
-                {% empty %}
-                    <p style="grid-column: 1 / -1; text-align: center; font-size: 1.25rem; color: #4a4a4a;">
-                        No menu items available at the moment.
-                    </p>
-                {% endfor %}
-            </div>
-        {% else %}
-            <section>
-                <h2>Welcome</h2>
-                <p>Enjoy a delightful dining experience at {{ restaurant_name }}.</p>
-                {% if phone_number %}
-                <p><strong>Contact us at:</strong> {{ phone_number }}</p>
-                {% endif %}
-            </section>
-        {% endif %}
+    <main class="container mx-auto px-4 py-12">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for product in products %}
+                <div class="bg-white rounded-xl shadow-lg p-6 transform hover:scale-105 transition-transform duration-300">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-3">{{ product.name }}</h2>
+                    <p class="text-gray-700 mb-4">{{ product.description|default:"No description available" }}</p>
+                    <p class="text-xl font-bold text-red-600">${{ product.price }}</p>
+                </div>
+            {% empty %}
+                <p class="text-center text-gray-600 col-span-full text-lg">No menu items available at the moment.</p>
+            {% endfor %}
+        </div>
     </main>
-
-    <footer>
-        <p>&copy; 2025 {{ restaurant_name }}. All rights reserved.</p>
+    <footer class="bg-red-800 text-white text-center py-6">
+        <p class="text-sm">&copy; 2025 Restaurant Management. All rights reserved.</p>
     </footer>
 </body>
 </html>
