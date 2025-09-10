@@ -40,3 +40,10 @@ def reservations(request):
     return render(request, 'home/reservations.html', context)
 
 
+def feedback(request):
+    if request.method == 'POST':
+        comment = request.POST.get('comment')
+        if comment:
+            Feedback.objects.create(comment=comment)
+        return render(request, 'home/feedback.html', {'restaurant_name': request.settings.RESTAURANT_NAME, 'success': True})
+    return render(request, 'home/feedback.html', {'restaurant_name': request.settings.RESTAURANT_NAME})
