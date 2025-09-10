@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.conf import settings
 import requests
 from restaurants.models import Restaurant
+from django.http import HttpResponseServerError
 
 def get_base_context():
     return {
@@ -31,4 +32,11 @@ def contact(request):
         'restaurant_name': request.settings.RESTAURANT_NAME
     }
     return render(request, 'home/contact.html', context)
+
+def reservations(request):
+    context = {
+        'restaurant_name': request.settings.RESTAURANT_NAME
+    }
+    return render(request, 'home/reservations.html', context)
+
 
