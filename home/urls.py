@@ -8,3 +8,4 @@ urlpatterns = [
     path('reservations/', reservations, name='reservations'),
     path('feedback/', feedback, name='feedback'),
 ]
+
