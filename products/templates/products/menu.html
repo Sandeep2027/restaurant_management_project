@@ -1,29 +1,34 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu - Grok's Gourmet</title>
-    <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-        h1 { text-align: center; }
-        .menu-item { border-bottom: 1px solid #ddd; padding: 10px 0; }
-        .menu-item h3 { margin: 0; }
-        .unavailable { color: #888; }
-    </style>
+    <link rel="stylesheet" href="{% static 'home/css/style.css' %}">
 </head>
 <body>
-    <h1>Our Menu</h1>
-    {% for item in menu_items %}
-        <div class="menu-item {% if not item.is_available %}unavailable{% endif %}">
-            <h3>{{ item.name }} - ${{ item.price }}</h3>
-            <p>{{ item.description }}</p>
-            {% if not item.is_available %}
-                <p><em>Currently unavailable</em></p>
-            {% endif %}
-        </div>
-    {% empty %}
-        <p>No menu items available.</p>
-    {% endfor %} 
+    <header>
+        <h1>Our Menu</h1>
+    </header>
+    <main>
+        <section>
+            {% for item in menu_items %}
+                <div class="menu-item {% if not item.is_available %}unavailable{% endif %}">
+                    <h3>{{ item.name }} - ${{ item.price }}</h3>
+                    <p>{{ item.description }}</p>
+                    {% if not item.is_available %}
+                        <p><em>Currently unavailable</em></p>
+                    {% endif %}
+                </div>
+            {% empty %}
+                <p>No menu items available.</p>
+            {% endfor %}
+        </section>
+    </main>
+    <footer>
+        <p>Opening Hours: Mon-Fri: 11am-9pm, Sat-Sun: 10am-10pm</p>
+        <p>&copy; 2025 Grok's Gourmet. All rights reserved.</p>
+    </footer>
 </body>
 </html>
