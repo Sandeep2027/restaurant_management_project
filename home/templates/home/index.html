@@ -1,36 +1,54 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restaurant Menu</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            font-family: 'Playfair Display', 'Georgia', serif;
-        }
-    </style>
+    <title>Home - {{ restaurant_name }}</title>
+    <link rel="stylesheet" href="{% static 'home/css/style.css' %}">
 </head>
-<body class="bg-amber-50">
-    <header class="bg-red-800 text-white py-8">
+<body>
+    <header>
+        <img src="{% static 'home/images/logo.png' %}" alt="{{ restaurant_name }} Logo" class="logo">
+        <h1>Welcome to {{ restaurant_name }}</h1>
+        <form action="{% url 'home' %}" method="get" class="search-form">
+            <input type="text" name="q" placeholder="Search menu items..." class="search-bar">
+            <button type="submit">Search</button>
+        </form>
     </header>
-    <main class="container mx-auto px-4 py-12">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {% for product in products %}
-                <div class="bg-white rounded-xl shadow-lg p-6 transform hover:scale-105 transition-transform duration-300">
-                    <h2 class="text-2xl font-semibold text-gray-900 mb-3">{{ product.name }}</h2>
-                    <p class="text-gray-700 mb-4">{{ product.description|default:"No description available" }}</p>
-                    <p class="text-xl font-bold text-red-600">${{ product.price }}</p>
-                </div>
-            {% empty %}
-                <p class="text-center text-gray-600 col-span-full text-lg">No menu items available at the moment.</p>
-            {% endfor %}
-        </div>
+    <main>
+        <section>
+            <h2>Welcome</h2>
+            <p>Enjoy a delightful dining experience at {{ restaurant_name }}.</p>
+            <p><strong>Contact us at:</strong> {{ phone_number }}</p>
+        </section>
+        <section>
+            <h2>Contact Us</h2>
+            <form method="post">
+                {% csrf_token %}
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Your Name">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Your Email">
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+        <section>
+            <h2>Our Location</h2>
+            <p>{{ address }}</p>
+            <iframe
+                width="600"
+                height="450"
+                style="border:0"
+                loading="lazy"
+                allowfullscreen
+                src="https://www.google.com/maps/embed/v1/place?q=123+Flavor+Street,+Foodville&key=AIzaSyBFw0Qbyq9zTFTd0vm6kPBaV7i2F9lQ">
+            </iframe>
+        </section>
     </main>
-    <footer class="bg-red-800 text-white text-center py-6">
-        <p class="text-sm">&copy; 2025 Restaurant Management. All rights reserved.</p>
+    <footer>
+        <p>Opening Hours: Mon-Fri: 11am-9pm, Sat-Sun: 10am-10pm</p>
+        <p>&copy; 2025 {{ restaurant_name }}. All rights reserved.</p>
     </footer>
 </body>
 </html>
-
-
