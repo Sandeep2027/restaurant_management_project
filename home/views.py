@@ -1,25 +1,24 @@
 from django.shortcuts import render
-from django.conf import settings
-import requests
 from restaurants.models import Restaurant
 from django.http import HttpResponseServerError
-
-def get_base_context():
-    return {
-        "restaurant_name": settings.RESTAURANT_NAME
-    }
-
-def get_restaurant_phone():
-    restaurant = Restaurant.objects.first()
-    if restaurant and hasattr(restaurant, 'phone_number'):
-        return restaurant.phone_number
-    return getattr(settings, 'RESTAURANT_PHONE', '')
+from .models import Feedback, ContactSubmission
 
 def home(request):
-    context = {
-        'restaurant_name': request.settings.RESTAURANT_NAME
-    }
-    return render(request, 'home/index.html', context)
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        if name and email:
+            ContactSubmission.objects.create(name=name, email=email)
+    try:
+        restaurant = Restaurant.objects.first()
+        context = {
+            'restaurant_name': request.settings.RESTAURANT_NAME,
+            'phone_number': restaurant.phone_number if restaurant else request.settings.RESTAURANT_PHONE,
+            'address': f"{restaurant.address}, {restaurant.city}" if restaurant else "123 Flavor Street, Foodville"
+        }
+        return render(request, 'home/index.html', context)
+    except Exception as e:
+        return HttpResponseServerError("An error occurred. Please try again later.")
 
 def about(request):
     context = {
